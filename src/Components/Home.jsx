@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import banner from '../assets/images/banner.png';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from './Loading';
 
 const Home = () => {
+
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLoadingEffect = () => {
+        setLoading(true)
+        setTimeout(() => {
+            navigate("/quiz")
+            setLoading(false)
+        }, [2000])
+    }
 
 
     return (
         <section className='lg:w-9/12 md:w-[90%] mx-auto mt-12 px-4 
           flex flex-col md:flex-row-reverse justify-between items-center'>
-
+            {/* loading */}
+            {loading && <Loading/>}
             <div className='md:w-1/2 w-full'>
                 <img src={banner} alt="banner" className='w-full' />
             </div>
@@ -24,10 +38,12 @@ const Home = () => {
                 </p>
 
                 <div className='font-medium text-lg flex flex-col sm:flex-row gap-5'>
+
                     <button className='hover:bg-green-600 text-white bg-yellow-800 px-5 py-2 
-                     rounded-full transition-all duration-300'>
+                     rounded-full transition-all duration-300' onClick={handleLoadingEffect}>
                         Start Quiz
                     </button>
+
 
                     <button className='inline-flex hover:bg-green-600 text-white bg-yellow-800 px-5 py-2 
                      rounded-full transition-all duration-300'>
